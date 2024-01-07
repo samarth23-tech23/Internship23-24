@@ -1,10 +1,10 @@
+import { Toaster } from 'sonner';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/ui/providers/theme-provider'
 import { ConvexClient } from 'convex/browser'
 import { ConvexReactClientProvider } from '@/components/ui/providers/convex-providers'
-import { Toaster } from 'sonner';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   icons:{
       icon:[
         {
+          
           media:"(prefers-color-scheme: light)",
           url:"/logo.svg",
           href:"/logo.svg"
@@ -44,6 +45,7 @@ export default function RootLayout({
         disableTransitionOnChange
         storageKey='jotion-theme'
         >
+      
 
          <Toaster position='bottom-center'/>
         {children}
