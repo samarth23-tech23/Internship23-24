@@ -2,9 +2,12 @@ import { Toaster } from 'sonner';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/ui/providers/theme-provider'
+
 import { ConvexClient } from 'convex/browser'
+
+import { ThemeProvider } from '@/components/ui/providers/theme-provider'
 import { ConvexReactClientProvider } from '@/components/ui/providers/convex-providers'
+import { ModalProvider } from '@/components/ui/providers/modal-provider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -47,6 +50,7 @@ export default function RootLayout({
         storageKey='jotion-theme'
         >
           <Toaster position='bottom-center'/>
+          <ModalProvider />
         {children}
         </ThemeProvider>
         </ConvexReactClientProvider>
