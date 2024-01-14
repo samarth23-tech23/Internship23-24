@@ -24,5 +24,5 @@ export const CoverImageModal = () => {
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
