@@ -42,5 +42,8 @@ next-env.d.ts
 .env.local
 
 .env.local
+<<<<<<< HEAD
+=======
 
 .env.local
+>>>>>>> 43056b8e07bfcb34767d69e862d8bf009c781f4e
