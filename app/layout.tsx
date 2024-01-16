@@ -8,7 +8,7 @@ import { ConvexClient } from 'convex/browser'
 import { ThemeProvider } from '@/components/ui/providers/theme-provider'
 import { ConvexReactClientProvider } from '@/components/ui/providers/convex-providers'
 import { ModalProvider } from '@/components/ui/providers/modal-provider';
-
+import { EdgeStoreProvider } from '@/lib/edgestore';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -42,6 +42,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ConvexReactClientProvider>
+          <EdgeStoreProvider>
         <ThemeProvider
         attribute='class'
         defaultTheme='system'
@@ -53,6 +54,7 @@ export default function RootLayout({
           <ModalProvider />
         {children}
         </ThemeProvider>
+        </EdgeStoreProvider>
         </ConvexReactClientProvider>
         </body>
     </html>

@@ -5,22 +5,20 @@ import { ImageIcon, Smile, X } from "lucide-react";
 import { useMutation } from "convex/react";
 import TextareaAutosize from "react-textarea-autosize";
 
-
+import { useCoverImage } from "@/hooks/use-cover-image";
 import { Doc } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 
 import { IconPicker } from "./icon-picker";
+import { CoverImageModal } from "@/components/modals/cover-image-modal"; // Add this import
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
   preview?: boolean;
-};
+}
 
-export const Toolbar = ({
-  initialData,
-  preview
-}: ToolbarProps) => {
+export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialData.title);
@@ -28,7 +26,7 @@ export const Toolbar = ({
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
 
- 
+  const coverImage = useCoverImage();
 
   const enableInput = () => {
     if (preview) return;
@@ -46,13 +44,11 @@ export const Toolbar = ({
     setValue(value);
     update({
       id: initialData._id,
-      title: value || "Untitled"
+      title: value || "Untitled",
     });
   };
 
-  const onKeyDown = (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
-  ) => {
+  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
       disableInput();
@@ -68,9 +64,9 @@ export const Toolbar = ({
 
   const onRemoveIcon = () => {
     removeIcon({
-      id: initialData._id
-    })
-  }
+      id: initialData._id,
+    });
+  };
 
   return (
     <div className="pl-[54px] group relative">
@@ -92,9 +88,7 @@ export const Toolbar = ({
         </div>
       )}
       {!!initialData.icon && preview && (
-        <p className="text-6xl pt-6">
-          {initialData.icon}
-        </p>
+        <p className="text-6xl pt-6">{initialData.icon}</p>
       )}
       <div className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4">
         {!initialData.icon && !preview && (
@@ -111,7 +105,7 @@ export const Toolbar = ({
         )}
         {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={coverImage.onOpen} // Updated this line
             className="text-muted-foreground text-xs"
             variant="outline"
             size="sm"
@@ -138,6 +132,7 @@ export const Toolbar = ({
           {initialData.title}
         </div>
       )}
+      <CoverImageModal /> 
     </div>
-  )
-}
+  );
+};
